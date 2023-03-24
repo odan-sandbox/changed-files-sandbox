@@ -1,0 +1,23 @@
+name: build
+
+
+on:
+  push:
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Calculate file differences
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+        with:
+          json: true
+          json_raw_format: true
+
+      - name: Dump
+        env:
+          OUTPUTS: ${{ toJson(steps.changed-files.outputs) }}
+        run: echo "$OUTPUTS"
